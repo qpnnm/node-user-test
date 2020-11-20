@@ -1,5 +1,6 @@
 const exp = require('express');
 const dbInfo = require('./db-config');
+const bodyParser = require('body-parser');
 const oracleDb = require('oracledb');
 
 
@@ -63,7 +64,7 @@ var getNodeTests = async function (params) {
 };
 
 var server = exp();
-
+server.use(bodyParser.json());
 server.get('/nodetests', async function (req, res, next) {
     var jsonArr = await getNodeTests(req.query);
     res.json(jsonArr);
@@ -76,6 +77,12 @@ server.get('/views/*', function (req, res) {
     
     console.log(req.url);
     res.sendFile(__dirname+req.url+'.html');
+})
+
+server.post('/nodetests',function(req,res){
+    console.log(req.body);
+
+    res.send('뭐하냐');
 })
 server.listen(80, function () {
     console.log('started with 80 port');

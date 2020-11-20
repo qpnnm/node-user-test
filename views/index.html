@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
+
 <body>
     안녕하세요 서버입니다 ^^
+    <button onclick="getNodeTests()">가져오기</button>
+    <button onclick="postNodeTests()">보내기</button>
+
+    <script>function getNodeTests() {
+            var url = 'http://localhost:8081/nodetests';
+            $.ajax({
+                method: 'GET',
+                url: url,
+                success: function (res) {
+                    console.log(res);
+                }, error: function (err) {
+                    console.log(err);
+                }
+
+            })
+
+
+        }</script>
+
+
+    <script>function postNodeTests() {
+            var url = '/nodetests';
+            var data = {
+                age: 1,
+                name: 'jaka'
+            }
+            $.ajax({
+                data: JSON.stringify(data),
+                method: 'POST',
+                contentType:'application/json;charset=UTF-8',
+                url: url,
+                success: function (res) {
+                    console.log(res);
+                }, error: function (err) {
+                    console.log(err);
+                }
+
+            })
+
+
+        }</script>
 </body>
+
 </html>
